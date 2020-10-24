@@ -1,6 +1,5 @@
 using System;
-
-namespace Canzoni
+namespace ProvaVerifica1
 {
     class Program
     {
@@ -15,23 +14,14 @@ namespace Canzoni
             public decimal prezzo;
         }
 
-        public struct Playlist
-        {
-            public string nom;
-            public Canzone[] eleCanzoni;
-        }
-
-
         static void Main(string[] args)
-        {
+        {           
             //Varaibili
             Canzone[] elenco = new Canzone[100];            //Contiene tutte le canzoni
             int num = 0;        //Numero di canzoni
             ConsoleKeyInfo scelta = default(ConsoleKeyInfo);
             string[] genere = new string[30];           //Contiene i generi
             int y = 0;          //Numero di generi
-            Playlist[] playlist = new Playlist[100];
-            int p = 0;          //Numero di playlist
 
 
             if (true) //Esempi
@@ -107,7 +97,7 @@ namespace Canzoni
 
 
             }       //Esempi
-
+            
 
             do
             {
@@ -121,23 +111,22 @@ namespace Canzoni
                 Console.WriteLine("[2] Elenca tutte le canzoni");
                 Console.WriteLine("[3] Modifica una canzone");
                 Console.WriteLine("[4] Cancella una traccia");
-                Console.WriteLine("[5] Calcola la media di prezzo di un genere");
-                Console.WriteLine("[6] Prodotto più costoso");
-                Console.WriteLine("".PadRight(30, '_'));
-                Console.WriteLine("[7] Cra una playlist");
-                Console.WriteLine("[8] Visualizza una playlist");
-                Console.WriteLine("[9] Modifica una playlist\n");
+                Console.WriteLine("[5] Cancella una categoria");
+                Console.WriteLine("[6] Calcola la media di prezzo di un genere");
+                Console.WriteLine("[7] Prodotto più costoso");
+                Console.WriteLine("[8] Prodotto più costoso\n");
+
                 Console.WriteLine("[U] Esci");
 
                 scelta = Console.ReadKey(true);
 
                 Console.Clear();
-                switch (scelta.KeyChar.ToString())
+                switch(scelta.KeyChar.ToString())
                 {
                     case "1":           //aggingi nuove canzoni
                         {
                             bool ripeti = true;
-
+                            
                             while (ripeti)
                             {
                                 if (num >= 100)         //Controlla che ci siano spazi disponibili
@@ -145,26 +134,26 @@ namespace Canzoni
                                     Console.WriteLine("Hai inserito toprri prodotti");
                                     break;
                                 }
-
-
+                                
+                                
                                 //Contatori
                                 int n = 0;
                                 int a = 0;
                                 x = 0;
-
+                                                              
                                 bool cerca = true;          //Continua solo con codici validi
-
+                                
                                 Console.Write("Inserisci il codice della traccia:  ");
                                 elenco[num].codice = Console.ReadLine();            //Inserisci il codice
-
-
+                                
+                                
                                 if (String.IsNullOrWhiteSpace(elenco[num].codice) == true)          //Controlla che il codice non sia vuoto
                                 {
                                     Console.WriteLine("Devi inserire il codice");
                                     cerca = false;
                                 }
-
-
+                                
+                                
                                 while (x < num)         // Controlla che il codice non sia già stato usato  
                                 {
 
@@ -176,7 +165,7 @@ namespace Canzoni
 
                                     x = x + 1;
                                 }
-
+                               
 
                                 if (cerca)          //Se il codice non è mai stato usato inserisce il resto, sennò ricomincia
                                 {
@@ -201,8 +190,8 @@ namespace Canzoni
                                     elenco[num].tempo = durata;
                                     Console.Write("Inserisci il genere della canzone:  ");
                                     elenco[num].genere = Console.ReadLine();
-
-                                    while (a < y)         // Mantieni un elenco di generi
+                               
+                                    while (a<y)         // Mantieni un elenco di generi
                                     {
                                         if (elenco[num].genere != genere[a])
                                         {
@@ -210,7 +199,7 @@ namespace Canzoni
                                         }
 
                                         a += 1;
-                                    }
+                                    } 
                                     if (a == n)
                                     {
                                         genere[y] = elenco[num].genere;
@@ -243,7 +232,7 @@ namespace Canzoni
                             break;
                         }
 
-
+                      
                     case "2":           //Eleneco
                         {
                             Console.WriteLine("Elenco delle canzoni:\n");
@@ -254,7 +243,7 @@ namespace Canzoni
                                 if (elenco[x].codice != default(string))            //Evita che vengano scritte canzoni eliminate, se no vengono scritte
                                 {
                                     Console.WriteLine("".PadRight(20, '_'));
-
+                         
                                     Console.WriteLine(elenco[x].codice);
                                     Console.WriteLine($"\nAutore: {elenco[x].autore}");
                                     Console.WriteLine($"Titolo: {elenco[x].titolo}");
@@ -277,11 +266,11 @@ namespace Canzoni
                             Console.Write("Inserisci il codice di una canzone:  ");
                             cerca = Console.ReadLine();
 
-                            while (x < num)
+                            while(x < num)
                             {
                                 Console.Clear();
 
-                                if (string.Compare(cerca, elenco[x].codice) == 0)          //Se trova un prodotto. (cerca == elenco[x].codice)
+                                if (string.Compare(cerca, elenco[x].codice)==0)          //Se trova un prodotto. (cerca == elenco[x].codice)
                                 {
                                     do
                                     {
@@ -296,7 +285,7 @@ namespace Canzoni
 
                                         scelta = Console.ReadKey();
 
-                                        switch (scelta.KeyChar.ToString())
+                                        switch(scelta.KeyChar.ToString())
                                         {
                                             case "1":           //Cambia il titolo
                                                 {
@@ -362,8 +351,26 @@ namespace Canzoni
 
                                             case "6":           //Cambia il genere
                                                 {
+                                                    int a = 0;
+                                                    int n = 0;
+                                                    
                                                     Console.Write($"Inserisci il genere della canzone, prima era {elenco[x].genere}:  ");
-                                                    elenco[x].genere = Console.ReadLine();
+                                                    elenco[num].genere = Console.ReadLine();
+
+                                                    while (a < y)         // Mantieni un elenco di generi
+                                                    {
+                                                        if (elenco[num].genere != genere[a])
+                                                        {
+                                                            n += 1;
+                                                        }
+
+                                                        a += 1;
+                                                    }
+                                                    if (a == n)
+                                                    {
+                                                        genere[y] = elenco[num].genere;
+                                                        y = y + 1;
+                                                    }
 
                                                     break;
                                                 }
@@ -377,11 +384,11 @@ namespace Canzoni
                                                         break;
                                                     }
                                                     else if (prezzo < 0)            //Controlla che il prezzo non sia negativo
-                                                    {
-                                                        Console.WriteLine("Il prezzo non può essere negativo");
-                                                        break;
-                                                    }
-                                                    else
+                                                        {
+                                                            Console.WriteLine("Il prezzo non può essere negativo");
+                                                            break;
+                                                        }
+                                                    else 
                                                         elenco[num].prezzo = prezzo;
                                                     break;
                                                 }
@@ -396,12 +403,12 @@ namespace Canzoni
                                                     break;
                                                 }
 
-                                        }
+                                        }                                                                            
 
                                         Console.Write("Traccia modificata correttamente!");
 
                                     } while (scelta.KeyChar.ToString() != "0");
-
+                                    
                                     break;
                                 }
 
@@ -428,8 +435,8 @@ namespace Canzoni
 
                                 if (cerca == elenco[x].codice)          //Quando trova la sovrascrive con quella in ultima posizione
                                 {
-                                    elenco[x] = default;
-
+                                        elenco[x] = elenco[num-1];
+                                
                                     Console.Write("Traccia eliminata correttamente!");
                                     num = num - 1;
 
@@ -447,6 +454,60 @@ namespace Canzoni
 
 
                     case "5":           //Media
+                        {
+                            //Contatori
+                            int c = 0;
+                            int nc = 0;
+
+                            string categoria = default(String);
+
+                            Console.WriteLine("Scegli una categoria tra:");
+                            while (c < y)           //Elenca tutte le categorie
+                            {
+                                Console.WriteLine(genere[c]);
+
+                                c += 1;
+                            }
+
+                            categoria = Console.ReadLine();     //Scegli una categoria
+                            Console.Clear();
+
+                            while (x < num)
+                            {
+                                if (string.Compare(elenco[x].genere, categoria) == 0)          //elenco[x].genere == categoria
+                                {
+                                    elenco[x] = elenco[num - 1];
+                                    num = num - 1;
+                                    nc += 1;
+                                }
+                                else
+                                x = x + 1;
+                            }
+
+                            if (nc == 0)         //Controlla che la categoria esista
+                                Console.WriteLine("La categoria selezionata non esiste!");
+
+                            if (nc >0)
+                            {                             
+                                Console.WriteLine($"{nc} prodotti eliminati correttamente");
+
+                                x = 0;
+                                while (x<y)
+                                {
+                                    if (genere[x] == categoria)
+                                    {
+                                        genere[x] = genere[y - 1];
+                                        break;
+                                    }
+                                    x += 1;
+                                }
+                            }
+
+                            break;
+                        }
+
+
+                    case "6":           //Media
                         {
                             //Contatori
                             int c = 0;
@@ -469,7 +530,7 @@ namespace Canzoni
 
                             while (x < num)
                             {
-                                if (string.Compare(elenco[x].genere, categoria) == 0)          //elenco[x].genere == categoria
+                                if (string.Compare(elenco[x].genere,categoria) ==0)          //elenco[x].genere == categoria
                                 {
                                     somma = somma + elenco[x].prezzo;
                                     n = n + 1;
@@ -477,27 +538,27 @@ namespace Canzoni
 
                                 x = x + 1;
                             }
-
+                            
                             if (n == 0)         //Controlla che la categoria esista
                                 Console.WriteLine("La categoria selezionata non esiste!");
-
+                            
                             else        //Media
                             {
                                 media = somma / n;
                                 Console.WriteLine($"La media delle canzoni {categoria} è {media}");
-                            }
+                            }                          
 
                             break;
                         }
 
 
-                    case "6":           //Prezzo più alto
+                    case "7":           //Prezzo più alto
                         {
                             decimal pre = default;          //Contiene il prezzo più alto al momento
                             int b = 0;
                             x = 0;
 
-                            while (x < num)
+                            while (x<num)
                             {
                                 if (pre < elenco[x].prezzo)         //Controlla se il prezzo è minore lo aggiorna
                                 {
@@ -514,211 +575,23 @@ namespace Canzoni
                         }
 
 
-                    case "7":           //Raggruppa canzoni in una playlist
+                    case "8":           //Prezzo più basso
                         {
-                            {
-                                Console.Write("Inserisci il titolo della playlist: ");
-                                playlist[p].nom = Console.ReadLine();
-
-                                playlist[p].eleCanzoni = new Canzone[30];
-                                int h = 0;
-
-                                bool ripeti = true;
-
-                                while (ripeti)
-                                {
-                                    x = 0;
-                                    string cerca = default(string);
-                                    Console.Write("Inserisci il codice di una canzone da aggiungere:  ");
-                                    cerca = Console.ReadLine();
-
-                                    while (x < num)
-                                    {
-                                        Console.Clear();
-
-                                        if (cerca == elenco[x].codice)
-                                        {
-                                            playlist[p].eleCanzoni[h] = elenco[x];
-                                            Console.WriteLine($"{elenco[x].nome} aggiunta correttamente");
-
-                                            h = h + 1;
-
-                                            break;
-                                        }
-
-                                        else
-                                            Console.WriteLine("Nessuna traccia trovata");
-
-                                        x = x + 1;
-                                    }
-
-                                    Console.WriteLine("Premi un tasto per continuare, 0 per tornare al menù");
-                                    scelta = Console.ReadKey(true);
-                                    if (scelta.KeyChar.ToString() == "0")
-                                    {
-                                        ripeti = false;
-                                        p = p + 1;
-                                    }
-
-
-                                }
-
-                                break;
-                            }
-                        }
-
-
-                    case "8":           //visualizza i nomi delle tracce di una playlist
-                        {
-                            Console.Write("Inserisci il nome della playlist:");
-                            string nome = Console.ReadLine();
+                            decimal pre = elenco[x].prezzo;
                             int b = 0;
 
-                            while (x < p)
+                            while (x < num)
                             {
-                                Console.Clear();
-
-                                if (playlist[x].nom == nome)
+                                if (pre > elenco[x].prezzo)         //Controlla se il prezzo è minore lo aggiorna
                                 {
-                                    Console.WriteLine($"La playlist {nome} contiene: ");
-                                    while (b < 30)
-                                    {
-                                        if (playlist[x].eleCanzoni[b].codice != default)
-                                            Console.WriteLine($"{b + 1}){playlist[x].eleCanzoni[b].titolo} di {playlist[x].eleCanzoni[b].autore}");
-
-                                        b = b + 1;
-                                    }
-
+                                    pre = elenco[x].prezzo;
+                                    b = x;          //numero del prodotto con prezzo maggiore
                                 }
 
                                 x = x + 1;
-                            }
+                            } 
 
-                            if (b == 0)
-                            {
-                                Console.WriteLine("Nessuna playlist trovata");
-                            }
-
-                            break;
-                        }
-
-
-                    case "9":           //Modifica playlist
-                        {
-
-                            Console.Write("Inserisci il nome della playlist:");
-                            string nome = Console.ReadLine();
-
-                            while (x < p)
-                            {
-                                Console.Clear();
-
-                                if (playlist[x].nom == nome)
-                                {
-                                    int a = 0;          //Contatore
-                                    int f = 0;          //Numero di canzoni nella playlist
-                                    while (a < 30)          //Trova quante 
-                                    {
-                                        if (playlist[x].eleCanzoni[a].codice != default)
-                                            f = f + 1;
-
-                                        a = a + 1;
-                                    }
-
-                                    do
-                                    {
-                                        Console.WriteLine($"Playlist {nome} trovata");
-                                        Console.WriteLine("".PadRight(30, '_'));
-                                        Console.WriteLine("[1] Aggiungi una canzone");
-                                        Console.WriteLine("[2] Elimina una canzone da una playlist\n");
-                                        Console.WriteLine("[0] Torna al menù");
-
-                                        scelta = Console.ReadKey(true);
-
-                                        switch (scelta.KeyChar.ToString())
-                                        {
-                                            case "1":           //Aggiunge una canzone
-                                                {
-                                                    int b = 0;          //Constatore
-                                                    string cerca = default(string);
-                                                    Console.Write("Inserisci il codice di una canzone da aggiungere:  ");
-                                                    cerca = Console.ReadLine();
-
-                                                    while (b < num)
-                                                    {
-                                                        Console.Clear();
-
-                                                        if (cerca == elenco[b].codice)
-                                                        {
-                                                            playlist[x].eleCanzoni[f] = elenco[b];
-                                                            Console.WriteLine("Canzone aggiunta correttamente");
-
-                                                            f = f + 1;
-
-                                                            break;
-                                                        }
-
-                                                        else
-                                                            Console.WriteLine("Nessuna traccia trovata");
-
-                                                        b = b + 1;
-                                                    }
-
-                                                    break;
-                                                }
-
-
-                                            case "2":           //Cancella una canzone
-                                                {
-                                                    int b = 0;          //Constatore
-                                                    string cerca = default(string);
-                                                    Console.Write("Inserisci il codice di una canzone da eliminare:  ");
-                                                    cerca = Console.ReadLine();
-
-                                                    while (b < num)
-                                                    {
-                                                        Console.Clear();
-
-                                                        if (cerca == playlist[x].eleCanzoni[b].codice)
-                                                        {
-                                                            playlist[x].eleCanzoni[b] = playlist[x].eleCanzoni[f - 1];
-                                                            Console.WriteLine("Canzone eliminata correttamente");
-
-                                                            f = f - 1;
-
-                                                            break;
-                                                        }
-
-                                                        else
-                                                            Console.WriteLine("Nessuna traccia trovata");
-
-                                                        b = b + 1;
-                                                    }
-
-                                                    break;
-                                                }
-
-                                            case "0":
-                                                {
-                                                    break;
-                                                }
-
-                                            default:
-                                                {
-                                                    Console.WriteLine("Comando errato");
-
-                                                    break;
-                                                }
-                                        }
-
-                                    } while (scelta.KeyChar.ToString() != "0");
-
-                                    break;
-                                }
-
-                                x = x + 1;
-                            }
-
+                                Console.WriteLine($"La canzone con il prezzo più basso è {elenco[b].nome} che costa {pre}");
 
                             break;
                         }
